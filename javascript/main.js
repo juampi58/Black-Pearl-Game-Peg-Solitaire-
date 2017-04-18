@@ -1,104 +1,89 @@
 
-var T=true , F=false;
-var map= [
-      [T,T,T],
-      [T,T,T],
-  [T,T,T,T,T,T,T],
-  [T,T,T,F,T,T,T],
-  [T,T,T,T,T,T,T],
-      [T,T,T],
-      [T,T,T]
-];
 
-
-function Game(map){
-  this.board=new Board();
-  this.map=map;
-}
-
-
-
-
-function Board() {
-  this.fullCells= [                                {row:0,column:2},{row:0,column:3},{row:0,column:4},
+function Game(){
+  this.board=[                                    {row:0,column:2},{row:0,column:3},{row:0,column:4},
                                                    {row:1,column:2},{row:1,column:3},{row:1,column:4},
                  {row:2,column:0},{row:2,column:1},{row:2,column:2},{row:2,column:3},{row:2,column:4},{row:2,column:5},{row:2,column:6},
-                 {row:3,column:0},{row:3,column:1},{row:3,column:2},                 {row:3,column:4},{row:3,column:5},{row:3,column:6},
+                 {row:3,column:0},{row:3,column:1},{row:3,column:2},{row:3,column:3},{row:3,column:4},{row:3,column:5},{row:3,column:6},
                  {row:4,column:0},{row:4,column:1},{row:4,column:2},{row:4,column:3},{row:4,column:4},{row:4,column:5},{row:4,column:6},
                                                    {row:5,column:2},{row:5,column:3},{row:5,column:4},
                                                    {row:6,column:2},{row:6,column:3},{row:6,column:4}];
-  this.emptyCells=[{row:3,column:3}];
-
-
-
 }
 
 
-Game.prototype.updateBoard = function () {
-  this.board.fullCells.forEach(function(position,index){
+Game.prototype.startBoard = function () {
+  this.board.forEach(function(position,index){
       var selector = '[data-row=' + position.row +'][data-column=' + position.column +']';
       $(selector).addClass('full');
      });
-     this.board.emptyCells.forEach(function(position,index){
-         var selector = '[data-row=' + position.row +'][data-column=' + position.column +']';
-         $(selector).addClass('empty');
-
-       });
-
+     $('[data-row=3][data-column=3]').removeClass('full');
+     $('[data-row=3][data-column=3]').addClass('empty');
 };
 
-function pickABall(){
-$('.full').click(function(){
-  $('.selected').removeClass('selected');
-  $(this).addClass('selected');
-});
-}
-
-function jumpAndEat(){
-  $('.empty').click(function(){
-    $('.selected').toggleClass('full');
-    $('.selected').addClass('empty');
-    console.log($(this, '.data-row'));
-    switch ($('.selected', 'data-row')-$(this, 'data-row')) {
+Game.prototype.move= function(){
+  $(document).on("click", '.full', function(){
+    $('.selected').removeClass('selected');
+    $(this).addClass('selected');
+  });
+  $(document).on("click", '.empty', function(){
+   switch ($('.selected').attr('data-row')-$(this).attr('data-row')) {
       case 0:
-      switch ($('.selected', 'data-column')-$(this, 'data-column')) {
+      var row=$(this).attr('data-row');
+      switch ($('.selected').attr('data-column')-$(this).attr('data-column')) {
         case 2:
-          $('data-column'-1).removeClass('full');
-          $('data-column'-1).addClass('empty');
+        var col=$('.selected').attr('data-column')-1;
+        var selector='[data-row=' + row +'][data-column=' + col + ']';
+        console.log('[data-row=' + row +'][data-column=' + col +']');
+        $('.selected').removeClass('full');
+        $('.selected').addClass('empty');
+          $(selector).removeClass('full');
+          $(selector).addClass('empty');
+          $(this).removeClass('empty');
+          $(this).addClass('full');
           break;
         case -2:
-          $('data-column'+1).removeClass('full');
-          $('data-column'+1).addClass('empty');
+        var col1=parseInt($('.selected').attr('data-column'))+1;
+        var selector1='[data-row=' + row +'][data-column=' + col1 +']';
+        $('.selected').removeClass('full');
+        $('.selected').addClass('empty');
+          $(selector1).removeClass('full');
+          $(selector1).addClass('empty');
+          $(this).removeClass('empty');
+          $(this).addClass('full');
           break;
         }
         break;
       case 2:
-      $('data-row'-1).removeClass('full');
-      $('data-row'-1).addClass('empty');
+      if($('.selected').attr('data-column')-$(this).attr('data-column')===0){
+      var col2=$(this).attr('data-column');
+      var row1=$('.selected').attr('data-row')-1;
+      var selector2='[data-row=' + row1 +'][data-column=' + col2 +']';
+      $('.selected').removeClass('full');
+      $('.selected').addClass('empty');
+      $(selector2).removeClass('full');
+      $(selector2).addClass('empty');
+      $(this).removeClass('empty');
+      $(this).addClass('full');}
       break;
       case -2:
-      $('data-row'+1).removeClass('full');
-      $('data-row'+1).addClass('empty');
+      if($('.selected').attr('data-column')-$(this).attr('data-column')===0){
+      var col3=$(this).attr('data-column');
+      var row2=parseInt($('.selected').attr('data-row'))+1;
+      var selector3='[data-row=' + row2 +'][data-column=' + col3 +']';
+      $('.selected').removeClass('full');
+      $('.selected').addClass('empty');
+      $(selector3).removeClass('full');
+      $(selector3).addClass('empty');
+      $(this).removeClass('empty');
+      $(this).addClass('full');}
       break;
-
-      }
-    $('.selected').toggleClass('selected');
-    $(this).removeClass('empty');
-    $(this).addClass('full');
+    }
+    $('.selected').removeClass('selected');
   });
-
-
 }
 
-
-
-
-
 $(document).ready(function () {
-
-var game=new Game(map);
-game.updateBoard();
-console.log(game.map);
-pickABall();
-jumpAndEat();
+  var game=new Game();
+  game.startBoard();
+  game.move();
 });
