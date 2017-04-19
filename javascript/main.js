@@ -1,7 +1,7 @@
 
 
 function Game(){
-  this.board=[                                    {row:0,column:2},{row:0,column:3},{row:0,column:4},
+  this.board=[                                     {row:0,column:2},{row:0,column:3},{row:0,column:4},
                                                    {row:1,column:2},{row:1,column:3},{row:1,column:4},
                  {row:2,column:0},{row:2,column:1},{row:2,column:2},{row:2,column:3},{row:2,column:4},{row:2,column:5},{row:2,column:6},
                  {row:3,column:0},{row:3,column:1},{row:3,column:2},{row:3,column:3},{row:3,column:4},{row:3,column:5},{row:3,column:6},
@@ -9,7 +9,7 @@ function Game(){
                                                    {row:5,column:2},{row:5,column:3},{row:5,column:4},
                                                    {row:6,column:2},{row:6,column:3},{row:6,column:4}];
 }
-
+  var game=new Game();
 
 Game.prototype.startBoard = function () {
   this.board.forEach(function(position,index){
@@ -20,6 +20,13 @@ Game.prototype.startBoard = function () {
      $('[data-row=3][data-column=3]').addClass('empty');
 };
 
+Game.prototype.startNew= function(){
+  $('#start-new-button').click( function(){
+    $('.col').removeClass('full').removeClass('empty');
+    var game=new Game();
+    game.startBoard();
+  });
+};
 Game.prototype.move= function(){
   $(document).on("click", '.full', function(){
     $('.selected').removeClass('selected');
@@ -33,7 +40,6 @@ Game.prototype.move= function(){
         case 2:
         var col=$('.selected').attr('data-column')-1;
         var selector='[data-row=' + row +'][data-column=' + col + ']';
-        console.log('[data-row=' + row +'][data-column=' + col +']');
         $('.selected').removeClass('full');
         $('.selected').addClass('empty');
           $(selector).removeClass('full');
@@ -80,10 +86,11 @@ Game.prototype.move= function(){
     }
     $('.selected').removeClass('selected');
   });
-}
+};
 
 $(document).ready(function () {
-  var game=new Game();
+
   game.startBoard();
   game.move();
+  game.startNew();
 });
