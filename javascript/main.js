@@ -1,4 +1,4 @@
-
+var count=0;
 
 function Game(){
   this.board=[                                     {row:0,column:2},{row:0,column:3},{row:0,column:4},
@@ -9,6 +9,7 @@ function Game(){
                                                    {row:5,column:2},{row:5,column:3},{row:5,column:4},
                                                    {row:6,column:2},{row:6,column:3},{row:6,column:4}];
 }
+
   var game=new Game();
 
 Game.prototype.startBoard = function () {
@@ -24,6 +25,7 @@ Game.prototype.startNew= function(){
   $('#start-new-button').click( function(){
     $('.col').removeClass('full').removeClass('empty');
     var game=new Game();
+    count=0;
     game.startBoard();
   });
 };
@@ -84,6 +86,11 @@ Game.prototype.move= function(){
       $(this).addClass('full');}
       break;
     }
+    count++;
+    console.log(count);
+    if (count===31) {
+      $('.full').addClass('black');
+        }
     $('.selected').removeClass('selected');
   });
 };
