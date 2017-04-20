@@ -130,6 +130,9 @@ Game.prototype.move= function(){
     console.log(count);
     if (count===31) {
       $('.full').addClass('black');
+      clearInterval(turnTimer);
+      sec=0;
+      $('#banner').html('Yo Ho Ho!!<br>I am free!!<br>Now that you know the secret...<br>We will have to blow you down...');
         }
     $('.selected').removeClass('selected');
   });
