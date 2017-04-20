@@ -1,5 +1,6 @@
 var count=0;
-
+var sec=10;
+var turnTimer;
 function Game(){
   this.board=[                                     {row:0,column:2},{row:0,column:3},{row:0,column:4},
                                                    {row:1,column:2},{row:1,column:3},{row:1,column:4},
@@ -12,6 +13,28 @@ function Game(){
 
   var game=new Game();
 
+Game.prototype.timer= function(){
+  clearInterval(turnTimer);
+ turnTimer= setInterval(function(){
+if (sec>-1) {
+    sec--;
+    $('#timer').html('Only: '+sec+' s');
+    if (sec===4) {
+      $('#banner').html('Hurry up!!!');
+    }
+    if (sec===3) {
+      $('#banner').html('');
+    }
+    if (sec===0) {
+$('#banner').html('You Lost!!!<br>Try again...<br>Or...<br>walk on the plank!!');
+$('.full').addClass('selected').removeClass('full');
+  clearInterval(turnTimer);
+    }
+  }
+},1500);
+};
+
+
 Game.prototype.startBoard = function () {
   this.board.forEach(function(position,index){
       var selector = '[data-row=' + position.row +'][data-column=' + position.column +']';
@@ -19,14 +42,20 @@ Game.prototype.startBoard = function () {
      });
      $('[data-row=3][data-column=3]').removeClass('full');
      $('[data-row=3][data-column=3]').addClass('empty');
+     game.timer();
 };
 
 Game.prototype.startNew= function(){
   $('#start-new-button').click( function(){
-    $('.col').removeClass('full').removeClass('empty');
+
+    $('#banner').html('');
+    $('.col').removeClass('full').removeClass('empty').removeClass('selected').removeClass('black');
     var game=new Game();
     count=0;
     game.startBoard();
+    sec=10;
+    clearInterval(turnTimer);
+    game.timer();
   });
 };
 Game.prototype.move= function(){
@@ -48,6 +77,7 @@ Game.prototype.move= function(){
           $(selector).addClass('empty');
           $(this).removeClass('empty');
           $(this).addClass('full');
+          count++;
           break;
         case -2:
         var col1=parseInt($('.selected').attr('data-column'))+1;
@@ -58,6 +88,7 @@ Game.prototype.move= function(){
           $(selector1).addClass('empty');
           $(this).removeClass('empty');
           $(this).addClass('full');
+          count++;
           break;
         }
         break;
@@ -72,6 +103,7 @@ Game.prototype.move= function(){
       $(selector2).addClass('empty');
       $(this).removeClass('empty');
       $(this).addClass('full');}
+      count++;
       break;
       case -2:
       if($('.selected').attr('data-column')-$(this).attr('data-column')===0){
@@ -84,9 +116,12 @@ Game.prototype.move= function(){
       $(selector3).addClass('empty');
       $(this).removeClass('empty');
       $(this).addClass('full');}
+      count++;
       break;
     }
-    count++;
+    sec=10;
+    $('#banner').html('');
+
     console.log(count);
     if (count===31) {
       $('.full').addClass('black');
@@ -98,6 +133,7 @@ Game.prototype.move= function(){
 $(document).ready(function () {
 
   game.startBoard();
+
   game.move();
   game.startNew();
 });

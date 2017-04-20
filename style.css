@@ -1,12 +1,13 @@
 body {
   display: flex;
   flex-direction: column;
-  align-items: center;
+
   background-color: orange;
   background-image: url("pics/kingdom_hearts_pattern_by_bebenciukas_brown.jpg");
 }
 
 .container{
+  margin-top: 1%;
   align-items: center;
   width: 400px;
   height: 400px;
@@ -16,19 +17,16 @@ body {
   transform: rotate(1deg)perspective(2000px) rotateX(1deg);
   box-shadow: 10px 10px 5px #2C0F0F;
 }
-h1{
-  font-family: 'WaltographRegular';
+h2{
+  font-family: "caribbean";
    font-weight: normal;
    font-style: normal;
-  color: white;
-  font-size: 70px;
-}
-#title{
-  height: 5%;
-  width: 10%;
-  display: flex;
+  color: #C9A93F;
+  font-size: 40px;
   align-self: center;
+
 }
+
 .col{
   width: 50px;
   height: 50px;
@@ -37,15 +35,6 @@ h1{
   float: left;
   margin: 2.5px 2.5px;
   text-align: center;
-
-
-
-}
-
-.out{
-}
-
-.in{
 }
 
 .full{
@@ -65,8 +54,25 @@ background-color: #2C0F0F;
   background-color: black;
     background-image: url("pics/silver ball.png");
 }
+
+#banner{
+  font-family: 'Marcellus SC', serif;
+    font-size: 50px;
+    color:#C9A93F;
+    position: absolute;
+    margin-top: 20%;
+    margin-left: 5%;
+}
+#timer{
+  font-family: caribbean;
+  font-size: 40px;
+  position: absolute;
+  color: white;
+  margin-left: 70%;
+margin-top: 20%;
+}
 button{
-  margin-top: 3%;
+  margin-top: 5%;
   color: white;
   background-color: #2C0F0F;
   height: 50px;
@@ -75,4 +81,30 @@ button{
   pointer-events: painted brown;
   font-family: 'WaltographRegular';
   font-size: 30px;
+  align-self: center;
+}
+
+@font-face {
+    font-family: 'caribbean';
+    src: url("fonts/Caribbean.ttf");
+}
+
+
+a{
+  align-self: center;
+}
+
+h1{
+font-family: "caribbean";
+font-size: 70px;
+  margin-top: 3%;
+  color:#C9A93F;
+  align-self: center;
+}
+p{
+  font-family: 'Marcellus SC', serif;
+  color: white;
+  font-size: 30px;
+  margin: 5% 10%;
+  align-self: center;
 }
