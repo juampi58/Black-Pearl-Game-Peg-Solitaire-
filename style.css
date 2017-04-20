@@ -1,7 +1,6 @@
 body {
   display: flex;
   flex-direction: column;
-
   background-color: orange;
   background-image: url("pics/kingdom_hearts_pattern_by_bebenciukas_brown.jpg");
 }
@@ -17,14 +16,14 @@ body {
   transform: rotate(1deg)perspective(2000px) rotateX(1deg);
   box-shadow: 10px 10px 5px #2C0F0F;
 }
+
 h2{
-  font-family: "caribbean";
+   font-family: "caribbean";
    font-weight: normal;
    font-style: normal;
-  color: #C9A93F;
-  font-size: 40px;
-  align-self: center;
-
+   color: #C9A93F;
+   font-size: 40px;
+   align-self: center;
 }
 
 .col{
@@ -50,29 +49,32 @@ background-color: #2C0F0F;
 .selected{
   background-image: url("pics/burgundy ball.png");
 }
+
 .black{
-  background-color: black;
+    background-color: black;
     background-image: url("pics/silver ball.png");
 }
 
 #banner{
-  font-family: 'Marcellus SC', serif;
+    font-family: 'Marcellus SC', serif;
     font-size: 50px;
     color:#C9A93F;
     position: absolute;
     margin-top: 20%;
     margin-left: 5%;
 }
+
 #timer{
   font-family: caribbean;
   font-size: 40px;
   position: absolute;
   color: white;
   margin-left: 70%;
-margin-top: 20%;
+  margin-top: 20%;
 }
+
 button{
-  margin-top: 5%;
+  margin-top: 2%;
   color: white;
   background-color: #2C0F0F;
   height: 50px;
@@ -84,27 +86,31 @@ button{
   align-self: center;
 }
 
+#go-back-button{
+  width: 200px;
+}
+
 @font-face {
     font-family: 'caribbean';
     src: url("fonts/Caribbean.ttf");
 }
-
 
 a{
   align-self: center;
 }
 
 h1{
-font-family: "caribbean";
-font-size: 70px;
+  font-family: "caribbean";
+  font-size: 70px;
   margin-top: 3%;
   color:#C9A93F;
   align-self: center;
 }
+
 p{
   font-family: 'Marcellus SC', serif;
   color: white;
-  font-size: 30px;
-  margin: 5% 10%;
+  font-size: 25px;
+  margin: 1% 5%;
   align-self: center;
 }

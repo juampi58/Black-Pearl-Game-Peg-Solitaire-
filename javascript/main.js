@@ -33,7 +33,12 @@ $('.full').addClass('selected').removeClass('full');
   }
 },1500);
 };
-
+Game.prototype.emptyBoard= function(){
+  this.board.forEach(function(position,index){
+      var selector = '[data-row=' + position.row +'][data-column=' + position.column +']';
+      $(selector).addClass('empty');
+     });
+};
 
 Game.prototype.startBoard = function () {
   this.board.forEach(function(position,index){
@@ -132,7 +137,7 @@ Game.prototype.move= function(){
 
 $(document).ready(function () {
 
-  game.startBoard();
+  game.emptyBoard();
 
   game.move();
   game.startNew();
